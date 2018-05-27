@@ -11,7 +11,7 @@ import com.rxrossi.cursomc.domain.Categoria;
 import com.rxrossi.cursomc.services.CategoriaService;
 
 @RestController
-@RequestMapping(value="/catogorias")
+@RequestMapping(value="/categorias")
 public class CategoriaResource {
 	
 	@Autowired
