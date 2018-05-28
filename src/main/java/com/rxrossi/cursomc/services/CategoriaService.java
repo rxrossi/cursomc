@@ -13,8 +13,6 @@ import com.rxrossi.cursomc.repositories.CategoriaRepository;
 import com.rxrossi.cursomc.services.exceptions.ConstraintException;
 import com.rxrossi.cursomc.services.exceptions.ObjectNotFoundException;
 
-
-
 @Service
 public class CategoriaService {
 
@@ -33,25 +31,30 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria obj) {
-		return repo.save(obj);
+		Categoria newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
-
 
 	public void delete(Integer id) {
 		find(id);
 		try {
 			repo.deleteById(id);
-		} 
-		catch (DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new ConstraintException("Não é possível excluir uma categoria que possui produtos");
 		}
 	}
-	
+
 	public List<Categoria> findAll() {
 		return repo.findAll();
 	}
-	
+
 	public Categoria fromDTO(CategoriaDTO objDto) {
 		return new Categoria(objDto.getId(), objDto.getNome());
+	}
+	
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
+		
 	}
 }
