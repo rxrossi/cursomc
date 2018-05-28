@@ -1,15 +1,16 @@
 package com.rxrossi.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.rxrossi.cursomc.domain.Categoria;
 import com.rxrossi.cursomc.repositories.CategoriaRepository;
-import com.rxrossi.cursomc.services.exceptions.ObjectNotFoundException;
 import com.rxrossi.cursomc.services.exceptions.ConstraintException;
+import com.rxrossi.cursomc.services.exceptions.ObjectNotFoundException;
 
 
 
@@ -43,5 +44,9 @@ public class CategoriaService {
 		catch (DataIntegrityViolationException e) {
 			throw new ConstraintException("Não é possível excluir uma categoria que possui produtos");
 		}
+	}
+	
+	public List<Categoria> findAll() {
+		return repo.findAll();
 	}
 }
